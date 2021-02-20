@@ -19,4 +19,4 @@ Copy explorer.py, plots.py and demo.py to your Pico using Thonny or ampy.
 
 Then run `demo.py`
 
-![Sample Plot](docs/img/sine.jpg)
+![Sample Plot](docs/img/sine3.jpg)
