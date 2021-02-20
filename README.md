@@ -6,6 +6,9 @@ The current version runs on the Raspberry Pi Pico with the Pimoroni Pico Explore
 
 It only does line plots in monochrome at the moment.
 
+Some code was copied from https://www.instructables.com/Raspberry-Pi-Pico-Pico-Explorer-Workout/ - Tony Goodhew's 
+great introduction to the Pico Explorer.
+
 ## Installation
 
 You need to have the Pimoroni uf2 version 0.0.7 or later installed on your Pico.
