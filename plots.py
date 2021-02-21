@@ -1,4 +1,10 @@
+from bmp import MonoBitmapWriter
+
+
 class Plotter:
+    def __init__(self, frame= None):
+        self.frame = frame if frame else self.default_frame()
+
     def line(self, x1, y1, x2, y2):
         pass
 
@@ -10,6 +16,20 @@ class Plotter:
 
     def show(self):
         pass
+
+    def get_pixel(self, x, y):
+        pass
+
+    def write_mono_bitmap(self, file_name):
+        with MonoBitmapWriter(file_name, self.frame.width, self.frame.height) as mbw:
+            bytes_in_row = self.frame.width // 8
+            row_bytes = bytearray(bytes_in_row)
+            for i in range(self.frame.height):
+                for j in range(bytes_in_row):
+                    row_bytes[j] = b'\x00'
+                    for k in range(8):
+                        row_bytes[j] |= 0 == self.get_pixel(i, k+ 8*j)
+                mbw.add_row(row_bytes)
 
 
 class Frame:
@@ -41,13 +61,13 @@ class Scale:
 
 
 class LinePlot:
-    def __init__(self, list_y, title: str, frame=None):
+    def __init__(self, list_y, title: str):
         self.list_y = list_y
         self.title = title
-        self._frame = frame
+
 
     def plot(self, plotter):
-        frame = self._frame if self._frame else  plotter.default_frame()
+        frame = plotter.frame()
         plotter.line(frame.lm, frame.tm, frame.lm, frame.bottom())
         plotter.line(frame.lm, frame.bottom(), frame.right(), frame.bottom())
         y_max = max(self.list_y)

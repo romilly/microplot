@@ -7,10 +7,11 @@ from plots import Plotter, Frame
 
 class ExplorerPlotter(Plotter):
     def __init__(self):
-        width = display.get_width()
-        height = display.get_height()
-        display_buffer = bytearray(width * height * 2)
-        display.init(display_buffer)
+        Plotter.__init__(self)
+        self.width = display.get_width()
+        self.height = display.get_height()
+        self._display_buffer = bytearray(self.width * self.height * 2)
+        display.init(self._display_buffer)
 
     # def vert(self, l, t, b):  # left, top, bottom
     #     n = b - t + 1  # Vertical line
@@ -60,6 +61,11 @@ class ExplorerPlotter(Plotter):
         y2 = round(y2)
         for (x, y) in self.bresenham(x1, y1, x2, y2):
             display.pixel(round(x), round(y))
+
+    def get_pixel(self, x, y):
+        start = (x + y*self.width)*2
+        b_low, b_high = self._display_buffer[start: start+1]
+        return b_low + b_high << 8
 
     def text(self, x, y, text):
         display.text(text, round(x), round(y), 200) # 200 needs replacing
