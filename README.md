@@ -12,6 +12,8 @@ Some code was copied from https://www.instructables.com/Raspberry-Pi-Pico-Pico-E
 The line drawing uses code from https://github.com/encukou/bresenham
 Copyright © 2016 Petr Viktorin
 
+![Sample Plot](docs/img/sine3.jpg)
+
 ## Installation
 
 You need to have the Pimoroni uf2 version 0.0.7 or later installed on your Pico.
@@ -19,4 +21,18 @@ Copy explorer.py, plots.py and demo.py to your Pico using Thonny or ampy.
 
 Then run `demo.py`
 
-![Sample Plot](docs/img/sine3.jpg)
+The demo displays a graph plot on the display and then creates a graph.bmp monochrome bitmap in the Pico.
+
+![Pico display](docs/img/new-sin.jpg)
+
+ampy does not download binary files byt you can copy it using `pyboard`;
+
+```shell
+./pyboard.py -d /dev/ttyACM0 -f cp :graph.bmp graph.bmp
+```
+Here's the bitmap file:
+
+![graph.bmp](docs/img/bmp.png)
+
+
+

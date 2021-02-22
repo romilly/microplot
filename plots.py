@@ -26,9 +26,12 @@ class Plotter:
             row_bytes = bytearray(bytes_in_row)
             for i in range(self.frame.height):
                 for j in range(bytes_in_row):
-                    row_bytes[j] = b'\x00'
+                    row_bytes[j] = 0
                     for k in range(8):
-                        row_bytes[j] |= 0 == self.get_pixel(i, k+ 8*j)
+                        x = k + 8 * j
+                        y = self.frame.height - (i + 1)
+                        bit = (0 != self.get_pixel(x, y))
+                        row_bytes[j] |= bit << (7 - k)
                 mbw.add_row(row_bytes)
 
 
@@ -67,7 +70,7 @@ class LinePlot:
 
 
     def plot(self, plotter):
-        frame = plotter.frame()
+        frame = plotter.frame
         plotter.line(frame.lm, frame.tm, frame.lm, frame.bottom())
         plotter.line(frame.lm, frame.bottom(), frame.right(), frame.bottom())
         y_max = max(self.list_y)

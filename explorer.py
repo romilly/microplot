@@ -64,7 +64,7 @@ class ExplorerPlotter(Plotter):
 
     def get_pixel(self, x, y):
         start = (x + y*self.width)*2
-        b_low, b_high = self._display_buffer[start: start+1]
+        b_low, b_high = self._display_buffer[start:start+2]
         return b_low + b_high << 8
 
     def text(self, x, y, text):
