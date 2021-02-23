@@ -2,8 +2,15 @@ from bmp import MonoBitmapWriter
 
 
 class Plotter:
+    BLUE = (0, 0, 255)
+    GREEN = (0, 255, 0)
+    RED = (255, 0 ,0)
+    WHITE = (255, 255, 255)
+    COLORS = (BLUE, GREEN, RED)
+
     def __init__(self, frame= None):
         self.frame = frame if frame else self.default_frame()
+        self.pen = self.BLUE
 
     def line(self, x1, y1, x2, y2):
         pass
@@ -18,6 +25,9 @@ class Plotter:
         pass
 
     def get_pixel(self, x, y):
+        pass
+
+    def set_pen(self, color):
         pass
 
     def write_mono_bitmap(self, file_name):
@@ -63,33 +73,62 @@ class Scale:
         return self.o_min + self.c * (val - self.d_min)
 
 
+def is_iterable(data_item):
+    try:
+        iter(data_item)
+    except TypeError:
+        return False
+    return True
+
+
+
+def lol(data):
+    """
+    turn a one-level list into a singleton list of lists
+    """
+    if len(data) == 0 or is_iterable(data[0]):
+        return data
+    return [data]
+
+
+
 class LinePlot:
-    def __init__(self, list_y, title: str):
-        self.list_y = list_y
+    def __init__(self, data, title: str):
+        self.data = lol(data)
         self.title = title
 
-
     def plot(self, plotter):
+        colors = plotter.COLORS
         frame = plotter.frame
-        plotter.line(frame.lm, frame.tm, frame.lm, frame.bottom())
-        plotter.line(frame.lm, frame.bottom(), frame.right(), frame.bottom())
-        y_max = max(self.list_y)
-        y_min = min(self.list_y)
-        scale_x = Scale(0, len(self.list_y), frame.lm, frame.right())
+        self.add_axes(frame, plotter, plotter.WHITE)
+        y_max = max(max(each_set) for each_set in self.data)
+        y_min = min(min(each_set) for each_set in self.data)
+        scale_x = Scale(0, len(self.data[0]), frame.lm, frame.right())
         scale_y = Scale(y_min, y_max, frame.bottom(), frame.tm)
+        self.add_y_scale(frame, plotter, scale_y, y_max, y_min, plotter.WHITE)
+        for (index, each_set) in enumerate(self.data):
+            color = colors[index]
+            coords = list(enumerate(each_set))
+            old_x, old_y = coords[0]
+            for new_x, new_y in coords[1:]:
+                x1= scale_x.scale(old_x)
+                y1 = scale_y.scale(old_y)
+                x2 = scale_x.scale(new_x)
+                y2 = scale_y.scale(new_y)
+                plotter.line(x1, y1, x2, y2, colors[index])
+                old_x, old_y = new_x, new_y
+        plotter.show()
+
+    def add_y_scale(self, frame, plotter, scale_y, y_max, y_min, color):
         y_step = (y_max - y_min) / 10
-        y_nums = list(y_min + y_step*index for index in range(11))
+        y_nums = list(y_min + y_step * index for index in range(11))
         y_ticks = list(scale_y.scale(y_num) for y_num in y_nums)
         for (y_num, y_tick) in zip(y_nums, y_ticks):
-            plotter.text(5, round(y_tick-10), '%4.2f' % y_num)
-            plotter.line(frame.lm, round(y_tick), frame.lm-5, round(y_tick))
-        coords = list(enumerate(self.list_y))
-        old_x, old_y = coords[0]
-        for new_x, new_y in coords[1:]:
-            x1= scale_x.scale(old_x)
-            y1 = scale_y.scale(old_y)
-            x2 = scale_x.scale(new_x)
-            y2 = scale_y.scale(new_y)
-            plotter.line(x1, y1, x2, y2)
-            old_x, old_y = new_x, new_y
-        plotter.show()
+            plotter.text(5, round(y_tick - 10), '%4.2f' % y_num)
+            plotter.line(frame.lm, round(y_tick), frame.lm - 5, round(y_tick), color)
+        coords = list(enumerate(self.data))
+        return coords
+
+    def add_axes(self, frame, plotter, color):
+        plotter.line(frame.lm, frame.tm, frame.lm, frame.bottom(), color)
+        plotter.line(frame.lm, frame.bottom(), frame.right(), frame.bottom(), color)

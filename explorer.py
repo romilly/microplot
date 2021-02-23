@@ -54,7 +54,9 @@ class ExplorerPlotter(Plotter):
                 D -= 2 * dx
             D += 2 * dy
 
-    def line(self, x1, y1, x2, y2):
+    def line(self, x1, y1, x2, y2, color=None):
+        if color is not None:
+            self.set_pen(color)
         x1 = round(x1)
         y1 = round(y1)
         x2 = round(x2)
@@ -77,6 +79,9 @@ class ExplorerPlotter(Plotter):
         display.set_pen(0, 0, 0)
         display.clear()
         display.update()
+
+    def set_pen(self, color):
+        display.set_pen(*color)
 
     def show(self):
         display.update()
