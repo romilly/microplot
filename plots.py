@@ -1,16 +1,26 @@
 from bmp import MonoBitmapWriter
 
 
-class Plotter:
+class COLORS:
     BLUE = (0, 0, 255)
     GREEN = (0, 255, 0)
-    RED = (255, 0 ,0)
+    RED = (255, 0, 0)
+    ORANGE = (255, 168, 0)
+    YELLOW = (255, 255, 0)
+    PURPLE = (128, 0, 128)
     WHITE = (255, 255, 255)
-    COLORS = (BLUE, GREEN, RED)
+    ALL = (BLUE, GREEN, RED, ORANGE, YELLOW, PURPLE)
+
+    @classmethod
+    def color(cls, i):
+        return cls.ALL[i % len(cls.ALL)]
+
+
+class Plotter:
 
     def __init__(self, frame= None):
         self.frame = frame if frame else self.default_frame()
-        self.pen = self.BLUE
+        self.pen = COLORS.BLUE
 
     def line(self, x1, y1, x2, y2):
         pass
@@ -81,7 +91,6 @@ def is_iterable(data_item):
     return True
 
 
-
 def lol(data):
     """
     turn a one-level list into a singleton list of lists
@@ -91,23 +100,23 @@ def lol(data):
     return [data]
 
 
-
 class LinePlot:
     def __init__(self, data, title: str):
         self.data = lol(data)
         self.title = title
 
     def plot(self, plotter):
-        colors = plotter.COLORS
         frame = plotter.frame
-        self.add_axes(frame, plotter, plotter.WHITE)
+        self.add_axes(frame, plotter, COLORS.WHITE)
         y_max = max(max(each_set) for each_set in self.data)
         y_min = min(min(each_set) for each_set in self.data)
         scale_x = Scale(0, len(self.data[0]), frame.lm, frame.right())
-        scale_y = Scale(y_min, y_max, frame.bottom(), frame.tm)
-        self.add_y_scale(frame, plotter, scale_y, y_max, y_min, plotter.WHITE)
+        plotter.text(frame.lm, frame.tm - 20, self.title)
+        text_margin = 30
+        scale_y = Scale(y_min, y_max, frame.bottom(), frame.tm + text_margin)
+        self.add_y_scale(frame, plotter, scale_y, y_max, y_min, COLORS.WHITE)
         for (index, each_set) in enumerate(self.data):
-            color = colors[index]
+            color = COLORS.color(index)
             coords = list(enumerate(each_set))
             old_x, old_y = coords[0]
             for new_x, new_y in coords[1:]:
@@ -115,7 +124,7 @@ class LinePlot:
                 y1 = scale_y.scale(old_y)
                 x2 = scale_x.scale(new_x)
                 y2 = scale_y.scale(new_y)
-                plotter.line(x1, y1, x2, y2, colors[index])
+                plotter.line(x1, y1, x2, y2, color)
                 old_x, old_y = new_x, new_y
         plotter.show()
 
@@ -130,5 +139,5 @@ class LinePlot:
         return coords
 
     def add_axes(self, frame, plotter, color):
-        plotter.line(frame.lm, frame.tm, frame.lm, frame.bottom(), color)
+        plotter.line(frame.lm, frame.tm + 30, frame.lm, frame.bottom(), color)
         plotter.line(frame.lm, frame.bottom(), frame.right(), frame.bottom(), color)

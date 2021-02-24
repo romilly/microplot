@@ -1,4 +1,4 @@
-import math, struct
+import struct
 
 WORD = "<h"
 DWORD = "<i"
