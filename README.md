@@ -36,7 +36,7 @@ Here's the bitmap file:
 
 ## Using the plotter to explore electronics
 
-This experiment uses the plotter to illustrate the chagarging of a capacitor.
+This experiment uses the plotter to illustrate the charging of a capacitor.
 
 Here's the explorer set-up.
 
