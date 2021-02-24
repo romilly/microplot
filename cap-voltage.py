@@ -21,7 +21,7 @@ def capture_voltage(time_us=1000, samples=100):
     return data
 
 
-plot = LinePlot(capture_voltage(),'Capacitor charging')
+plot = LinePlot(capture_voltage(),'Cap charging')
 plotter = ExplorerPlotter()
 plot.plot(plotter)
 
