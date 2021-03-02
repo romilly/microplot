@@ -1,4 +1,4 @@
-# Project journal for microplot
+# Project journal for MicroPlot
 
 ## Tuesday 02 March 2021
 
