@@ -1,19 +1,6 @@
-<map version="freeplane 1.5.9">
+<map version="freeplane 1.7.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node FOLDED="false" ID="Freemind_Link_1331878192" CREATED="1266488194781" MODIFIED="1581245692038" LINK="../../../../Dropbox/personal/planning/routine/active-projects.mm"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      plan
-    </p>
-  </body>
-</html>
-</richcontent>
-<hook NAME="MapStyle">
+<node TEXT="microplot&#xa;plan" FOLDED="false" ID="Freemind_Link_1331878192" CREATED="1266488194781" MODIFIED="1614617925541" LINK="../../../../Dropbox/personal/planning/routine/active-projects.mm"><hook NAME="MapStyle">
     <properties fit_to_viewport="false;"/>
 
 <map_styles>
@@ -107,6 +94,9 @@
 </node>
 <node TEXT="Resources" POSITION="left" ID="Freemind_Link_1594441695" CREATED="1273319832507" MODIFIED="1296303609303" COLOR="#33ff33">
 <icon BUILTIN="password"/>
+<node TEXT="https://github.com/FabriceSalvaire/PyResistorColorCode" ID="ID_1121908478" CREATED="1614416980789" MODIFIED="1614416980789" LINK="https://github.com/FabriceSalvaire/PyResistorColorCode"/>
+<node TEXT="https://learn.adafruit.com/circuitpython-display-support-using-displayio/introduction" ID="ID_739616849" CREATED="1614622133412" MODIFIED="1614622133412" LINK="https://learn.adafruit.com/circuitpython-display-support-using-displayio/introduction"/>
+<node TEXT="https://learn.adafruit.com/saving-bitmap-screenshots-in-circuitpython/use" ID="ID_1161792328" CREATED="1614622153387" MODIFIED="1614622153387" LINK="https://learn.adafruit.com/saving-bitmap-screenshots-in-circuitpython/use"/>
 </node>
 </node>
 </map>

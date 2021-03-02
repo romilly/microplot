@@ -1,19 +1,5 @@
 from bmp import MonoBitmapWriter
-
-
-class COLORS:
-    BLUE = (0, 0, 255)
-    GREEN = (0, 255, 0)
-    RED = (255, 0, 0)
-    ORANGE = (255, 168, 0)
-    YELLOW = (255, 255, 0)
-    PURPLE = (128, 0, 128)
-    WHITE = (255, 255, 255)
-    ALL = (BLUE, GREEN, RED, ORANGE, YELLOW, PURPLE)
-
-    @classmethod
-    def color(cls, i):
-        return cls.ALL[i % len(cls.ALL)]
+from colors import COLORS
 
 
 class Plotter:
@@ -53,6 +39,42 @@ class Plotter:
                         bit = (0 != self.get_pixel(x, y))
                         row_bytes[j] |= bit << (7 - k)
                 mbw.add_row(row_bytes)
+
+    """Implementation of Bresenham's line drawing algorithm
+
+           See en.wikipedia.org/wiki/Bresenham's_line_algorithm
+           Code from https://github.com/encukou/bresenham
+           """
+
+    def bresenham(self, x0, y0, x1, y1):
+        """Yield integer coordinates on the line from (x0, y0) to (x1, y1).
+        Input coordinates should be integers.
+        The result will contain both the start and the end point.
+        """
+        dx = x1 - x0
+        dy = y1 - y0
+
+        xsign = 1 if dx > 0 else -1
+        ysign = 1 if dy > 0 else -1
+
+        dx = abs(dx)
+        dy = abs(dy)
+
+        if dx > dy:
+            xx, xy, yx, yy = xsign, 0, 0, ysign
+        else:
+            dx, dy = dy, dx
+            xx, xy, yx, yy = 0, ysign, xsign, 0
+
+        D = 2 * dy - dx
+        y = 0
+
+        for x in range(dx + 1):
+            yield x0 + x * xx + y * yx, y0 + x * xy + y * yy
+            if D >= 0:
+                y += 1
+                D -= 2 * dx
+            D += 2 * dy
 
 
 class Frame:
