@@ -1,4 +1,4 @@
-from bmp import MonoBitmapWriter
+#from bmp import MonoBitmapWriter
 from colors import COLORS
 
 
@@ -26,19 +26,19 @@ class Plotter:
     def set_pen(self, color):
         pass
 
-    def write_mono_bitmap(self, file_name):
-        with MonoBitmapWriter(file_name, self.frame.width, self.frame.height) as mbw:
-            bytes_in_row = self.frame.width // 8
-            row_bytes = bytearray(bytes_in_row)
-            for i in range(self.frame.height):
-                for j in range(bytes_in_row):
-                    row_bytes[j] = 0
-                    for k in range(8):
-                        x = k + 8 * j
-                        y = self.frame.height - (i + 1)
-                        bit = (0 != self.get_pixel(x, y))
-                        row_bytes[j] |= bit << (7 - k)
-                mbw.add_row(row_bytes)
+    # def write_mono_bitmap(self, file_name):
+    #     with MonoBitmapWriter(file_name, self.frame.width, self.frame.height) as mbw:
+    #         bytes_in_row = self.frame.width // 8
+    #         row_bytes = bytearray(bytes_in_row)
+    #         for i in range(self.frame.height):
+    #             for j in range(bytes_in_row):
+    #                 row_bytes[j] = 0
+    #                 for k in range(8):
+    #                     x = k + 8 * j
+    #                     y = self.frame.height - (i + 1)
+    #                     bit = (0 != self.get_pixel(x, y))
+    #                     row_bytes[j] |= bit << (7 - k)
+    #             mbw.add_row(row_bytes)
 
     """Implementation of Bresenham's line drawing algorithm
 

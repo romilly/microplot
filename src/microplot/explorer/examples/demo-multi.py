@@ -1,6 +1,7 @@
 import math
 from explorer import ExplorerPlotter
 from plots import LinePlot
+from bitmapsaver import save_pixels
 
 
 def row(i):
@@ -13,4 +14,5 @@ data = list(row(i) for i in range(5))
 plot = LinePlot(data,'Muli-line plot')
 plotter = ExplorerPlotter()
 plot.plot(plotter)
-plotter.write_mono_bitmap('graph.bmp')
+# plotter.write_mono_bitmap('graph.bmp')
+save_pixels('cdemo.bmp', plotter)

@@ -31,8 +31,6 @@ def dword(n):
     return struct.pack(DWORD, n)
 
 
-
-
 def write_mono_bmp(file_name, rows, height, width):
     width_in_bytes = int(mult(8, width) / 8)
     pad = [0]*(mult(4, width_in_bytes)-width_in_bytes)

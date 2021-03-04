@@ -13,12 +13,6 @@ class ExplorerPlotter(Plotter):
         self._display_buffer = bytearray(self.width * self.height * 2)
         display.init(self._display_buffer)
 
-    # def vert(self, l, t, b):  # left, top, bottom
-    #     n = b - t + 1  # Vertical line
-    #     for i in range(n):
-    #         display.pixel(l, t + i)
-
-
     def line(self, x1, y1, x2, y2, color=None):
         if color is not None:
             self.set_pen(color)
@@ -30,9 +24,11 @@ class ExplorerPlotter(Plotter):
             display.pixel(round(x), round(y))
 
     def get_pixel(self, x, y):
-        start = (x + y*self.width)*2
-        b_low, b_high = self._display_buffer[start:start+2]
-        return b_low + b_high << 8
+        start = x + y*self.width
+        data = self._display_buffer
+        # b_low, b_high = self._display_buffer[start:start+2]
+        # return b_low + b_high << 8
+        return (data[start * 2] << 8) + data[start * 2 + 1]
 
     def text(self, x, y, text):
         display.text(text, round(x), round(y), 200) # 200 needs replacing
