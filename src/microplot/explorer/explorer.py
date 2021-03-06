@@ -13,15 +13,8 @@ class ExplorerPlotter(Plotter):
         self._display_buffer = bytearray(self.width * self.height * 2)
         display.init(self._display_buffer)
 
-    def line(self, x1, y1, x2, y2, color=None):
-        if color is not None:
-            self.set_pen(color)
-        x1 = round(x1)
-        y1 = round(y1)
-        x2 = round(x2)
-        y2 = round(y2)
-        for (x, y) in self.bresenham(x1, y1, x2, y2):
-            display.pixel(x, y)
+    def display_pixel(self, x, y):
+        display.pixel(x, y)
 
     def get_pixel(self, x, y):
         start = x + y*self.width

@@ -29,17 +29,8 @@ class CluePlotter(Plotter):
         self.display.show(self.group)
         self.display.refresh()
 
-    def line(self, x1, y1, x2, y2, color=None):
-        if color is None:
-            color_index = self.pallet_index[COLORS.WHITE]
-        else:
-            color_index = self.pallet_index[color]
-        x1 = round(x1)
-        y1 = round(y1)
-        x2 = round(x2)
-        y2 = round(y2)
-        for (x, y) in self.bresenham(x1, y1, x2, y2):
-            self.bitmap[x, y] = color_index
+    def display_pixel(self, x, y):
+        self.bitmap[x, y] = self.pen
 
     def get_pixel(self, x, y):
         return self.bitmap[x, y]
@@ -55,14 +46,14 @@ class CluePlotter(Plotter):
         c = Circle(x, y, r, fill=color_hex, outline=color_hex)
         self.group.append(c)
 
+    def set_pen(self, color):
+        self.pen = self.pallet_index[color]
+
     def default_frame(self):
         return Frame(320, 240, 20, 20, 60, 20)
 
     def blk(self):
         self.bitmap.fill(len(self.palette))
-
-    def set_pen(self, color):
-        pass
 
     def show(self):
         self.display.show(self.group)

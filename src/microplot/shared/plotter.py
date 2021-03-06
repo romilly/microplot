@@ -5,9 +5,17 @@ class Plotter:
 
     def __init__(self, frame= None):
         self.frame = frame if frame else self.default_frame()
+        self.pen = None
 
-    def line(self, x1, y1, x2, y2):
-        pass
+    def line(self, x1, y1, x2, y2, color=None):
+        if color is not None:
+            self.set_pen(color)
+        x1 = round(x1)
+        y1 = round(y1)
+        x2 = round(x2)
+        y2 = round(y2)
+        for (x, y) in self.bresenham(x1, y1, x2, y2):
+            self.display_pixel(x, y)
 
     def text(self, x, y, text):
         pass
@@ -22,13 +30,14 @@ class Plotter:
         pass
 
     def set_pen(self, color):
-        pass
+        self.pen = color
 
     def circle(self, x, y, r, color):
         pass
 
-    def spec_for(self, color):
-        return color
+    def display_pixel(self, x, y):
+        pass
+
 
     def write_mono_bitmap(self, file_name):
         with MonoBitmapWriter(file_name, self.frame.width, self.frame.height) as mbw:
