@@ -12,16 +12,17 @@ class COLORS:
     WHITE = (255, 255, 255)
     GOLD = (255,215,0)
     SILVER = (192,192,192)
+
     ALL = (BLUE, GREEN, RED, ORANGE, YELLOW, PURPLE)
-    RESISTORS = (BLACK, BROWN, RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, GREY)
-    TOLERANCE = {
-        1:  BROWN,
-        2:  RED,
-        5:  GOLD,
-        10: SILVER,
-        20: None
-    }
 
     @classmethod
-    def color(cls, i):
-        return cls.ALL[i % len(cls.ALL)]
+    def color(cls, i, colors=None):
+        if colors == None:
+            colors = cls.ALL
+        return colors[i % len(colors)]
+
+    @classmethod
+    def to_hex_color(cls, triple: tuple):
+        r, g, b = triple
+        return (r << 16) + (g << 8) + b
+

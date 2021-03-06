@@ -1,5 +1,12 @@
 import re
-from colors import COLORS
+# RESISTORS = (BLACK, BROWN, RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, GREY)
+# TOLERANCE = {
+#         1:  BROWN,
+#         2:  RED,
+#         5:  GOLD,
+#         10: SILVER,
+#         20: None
+#     }
 
 res_reg = re.compile('([0-9][0-9]?0?)([RkKM])$|([0-9][0-9]?)([RkKM])([0-9])$')
 
