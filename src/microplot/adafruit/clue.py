@@ -14,8 +14,8 @@ class CluePlotter(Plotter):
         self.width = self.display.width
         self.height = self.display.height
         self.group = displayio.Group(max_size=100)
-        self.bitmap = displayio.Bitmap(320, 240, 5)
         colors = COLORS.ALL + (COLORS.WHITE, COLORS.BLACK)
+        self.bitmap = displayio.Bitmap(320, 240, len(colors))
         self.palette = displayio.Palette(len(colors))
         self.pallet_index = {}
         for (index, color) in enumerate(colors):
