@@ -24,6 +24,12 @@ class Plotter:
     def set_pen(self, color):
         pass
 
+    def circle(self, x, y, r, color):
+        pass
+
+    def spec_for(self, color):
+        return color
+
     def write_mono_bitmap(self, file_name):
         with MonoBitmapWriter(file_name, self.frame.width, self.frame.height) as mbw:
             bytes_in_row = self.frame.width // 8

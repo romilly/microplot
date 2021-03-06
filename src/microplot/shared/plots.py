@@ -1,4 +1,4 @@
-
+from color import COLORS
 
 class Scale:
     def __init__(self, d_min, d_max, o_min, o_max):

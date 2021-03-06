@@ -1,7 +1,7 @@
 import math
 from explorer import ExplorerPlotter
 from plots import LinePlot
-from bitmapsaver import save_pixels
+# from bitmapsaver import save_pixels
 
 
 def row(i):

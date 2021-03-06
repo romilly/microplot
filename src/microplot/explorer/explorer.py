@@ -2,7 +2,7 @@ import math
 
 import picoexplorer as display
 
-from plots import Plotter, Frame
+from plotter import Plotter, Frame
 
 
 class ExplorerPlotter(Plotter):

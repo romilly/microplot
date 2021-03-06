@@ -17,7 +17,7 @@ class COLORS:
 
     @classmethod
     def color(cls, i, colors=None):
-        if colors == None:
+        if colors is None:
             colors = cls.ALL
         return colors[i % len(colors)]
 
@@ -25,4 +25,3 @@ class COLORS:
     def to_hex_color(cls, triple: tuple):
         r, g, b = triple
         return (r << 16) + (g << 8) + b
-
