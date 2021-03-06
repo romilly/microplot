@@ -39,7 +39,7 @@ class CluePlotter(Plotter):
         x2 = round(x2)
         y2 = round(y2)
         for (x, y) in self.bresenham(x1, y1, x2, y2):
-            self.bitmap[round(x), round(y)] = color_index
+            self.bitmap[x, y] = color_index
 
     def get_pixel(self, x, y):
         return self.bitmap[x, y]
