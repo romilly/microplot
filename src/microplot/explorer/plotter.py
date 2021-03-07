@@ -2,12 +2,12 @@ import math
 
 import picoexplorer as display
 
-from plotter import Plotter, Frame
+from abstract_plotter import AbstractPlotter, Frame
 
 
-class ExplorerPlotter(Plotter):
+class Plotter(AbstractPlotter):
     def __init__(self):
-        Plotter.__init__(self)
+        AbstractPlotter.__init__(self)
         self.width = display.get_width()
         self.height = display.get_height()
         self._display_buffer = bytearray(self.width * self.height * 2)
@@ -19,8 +19,6 @@ class ExplorerPlotter(Plotter):
     def get_pixel(self, x, y):
         start = x + y*self.width
         data = self._display_buffer
-        # b_low, b_high = self._display_buffer[start:start+2]
-        # return b_low + b_high << 8
         return (data[start * 2] << 8) + data[start * 2 + 1]
 
     def text(self, x, y, text):
@@ -36,6 +34,10 @@ class ExplorerPlotter(Plotter):
 
     def set_pen(self, color):
         display.set_pen(*color)
+
+    def circle(self, x, y, r, color):
+        self.set_pen(color)
+        display.circle(x, y, r)
 
     def show(self):
         display.update()

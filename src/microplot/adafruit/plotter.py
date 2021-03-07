@@ -1,4 +1,4 @@
-from plotter import Plotter, Frame
+from abstract_plotter import AbstractPlotter, Frame
 from color import COLORS
 import board
 import displayio
@@ -7,9 +7,9 @@ from adafruit_display_text import label
 from adafruit_display_shapes.circle import Circle
 
 
-class CluePlotter(Plotter):
+class Plotter(AbstractPlotter):
     def __init__(self):
-        Plotter.__init__(self)
+        AbstractPlotter.__init__(self)
         self.display = board.DISPLAY
         self.width = self.display.width
         self.height = self.display.height
