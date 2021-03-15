@@ -1,6 +1,6 @@
 import math
 from plotter import Plotter
-from plots import LinePlot
+from plots import ScatterPlot
 import board
 import digitalio
 import busio
@@ -10,11 +10,11 @@ from adafruit_bitmapsaver import save_pixels
 
 
 def plot():
-    sines = list(math.sin(math.radians(x))
-                 for x in range(0, 361, 4))
-    lineplot = LinePlot([sines],'MicroPlot line')
+    data = [[(20, 30), (40, 50), (10, 90), (60, 60)], [(10, 25), (45, 65)], [(33, 70)]]
+
+    splot = ScatterPlot(data, 'Scatter Plot')
     plotter = Plotter()
-    lineplot.plot(plotter)
+    splot.plot(plotter)
 
 
 def save():
@@ -23,7 +23,7 @@ def save():
     sdcard = adafruit_sdcard.SDCard(spi, cs)
     vfs = storage.VfsFat(sdcard)
     storage.mount(vfs, "/sd")
-    save_pixels("/sd/screenshot.bmp")
+    save_pixels("/sd/splot.bmp")
 
 
 plot()

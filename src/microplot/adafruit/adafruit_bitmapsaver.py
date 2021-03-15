@@ -92,6 +92,7 @@ def _write_pixels(output_file, pixel_source, palette):
                     color >>= 8
                     buffer_index += 1
         else:
+            result_buffer = bytearray(2048)
             data = pixel_source.fill_row(y - 1, result_buffer)
             for i in range(width):
                 pixel565 = (data[i * 2] << 8) + data[i * 2 + 1]
