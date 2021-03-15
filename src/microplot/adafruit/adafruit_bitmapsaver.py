@@ -30,6 +30,9 @@ Implementation Notes
 
 import gc
 import struct
+import board
+from displayio import Bitmap, Palette, Display
+
 
 
 
