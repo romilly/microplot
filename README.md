@@ -22,6 +22,8 @@ On all platforms, copy the Python files in `src/microplot/shared` to the device.
 Then copy plotter.py from `src/micorplot/explorer` if you're using the Pomoroni explorer,
 or from `src/microplot/adafruit` if you're using one f the Adafruit devices.
 
+## Quick Start
+
 There are three demos you can run:
 1. `demo.py` shows a single-line plot of a sine wave,
 1. `demo_multi.py` shows a plot of multiple sine waves,
@@ -31,7 +33,19 @@ There are three demos you can run:
 
 There's [code to save bitmaps](src/microplot/explorer/bitmapsaver.py) from the Pico Explorer Base.
 
-I'm currently struggling to get the code working with  CircuitPython.
+To save bitmaps on the PyPortal you'll need to use a patched version of Adafruit's bitmap saver available
+[here](src/microplot/adafruit/adafruit_bitmapsaver.py) and then run code like [this demo](src/microplot/adafruit/code.py)
+
+## Samples
+
+There are more [sample displays](SAMPLES.md) along with the code used to create them
+
+## Road Map
+
+1. Improve the documentation
+1. Add box plots
+1. Add examples for other displays
+1. Add a *Contributing* guide
 
 
 

@@ -14,7 +14,7 @@ BF_TYPE = b'BM'
 """
 Create and write out a Monochrome Bitmap File.
 
-File is build from BITMAPFILEHEADER, BITMAPINFOHEADER, RGBQUAD table, scanlines
+File is built from BITMAPFILEHEADER, BITMAPINFOHEADER, RGBQUAD table, scanlines
 """
 
 

@@ -80,7 +80,7 @@ def _write_pixels(output_file, pixel_source, palette):
     saving_bitmap = isinstance(pixel_source, Bitmap)
     width, height = _rotated_height_and_width(pixel_source)
     row_buffer = bytearray(_bytes_per_row(width))
-    result_buffer = bytearray(2048)
+    # result_buffer = bytearray(2048) replaced by fix below
     for y in range(height, 0, -1):
         buffer_index = 0
         if saving_bitmap:
@@ -92,7 +92,7 @@ def _write_pixels(output_file, pixel_source, palette):
                     color >>= 8
                     buffer_index += 1
         else:
-            result_buffer = bytearray(2048)
+            result_buffer = bytearray(2048) # fix to Issue #8
             data = pixel_source.fill_row(y - 1, result_buffer)
             for i in range(width):
                 pixel565 = (data[i * 2] << 8) + data[i * 2 + 1]
