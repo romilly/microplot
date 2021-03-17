@@ -3,11 +3,10 @@ Adapted from "https://github.com/adafruit/Adafruit_CircuitPython_BitmapSaver.git
 """
 
 
-
 import gc
 import struct
 
-from explorer import ExplorerPlotter
+from abstract_plotter import AbstractPlotter
 
 
 def _write_bmp_header(output_file, filesize):
@@ -33,41 +32,41 @@ def _bytes_per_row(source_width):
     padding_bytes = (4 - (pixel_bytes % 4)) % 4
     return pixel_bytes + padding_bytes
 
-def _rgb565_to_bgr_tuple(color):
-    blue = (color << 3) & 0x00F8  # extract each of the RGB triple into its own byte
-    green = (color >> 3) & 0x00FC
-    red = (color >> 8) & 0x00F8
-    return (blue, green, red)
+
+def rgb565_to_bgr_tuple(pixel565):
+    pass
 
 
-def _write_pixels(output_file, plotter: ExplorerPlotter):
-    width = plotter.width
-    height = plotter.height
+def _write_pixels(output_file, plotter: AbstractPlotter):
+    width = plotter.width()
+    height = plotter.height()
     row_buffer = bytearray(_bytes_per_row(width))
     for y in range(height, 0, -1):
         buffer_index = 0
         for i in range(width):
             try:
-                pixel565 = plotter.get_pixel(i, y-1)
+                pixel = plotter.get_pixel(i, y-1)
             except:
                 print(i, y)
                 raise Exception()
-            for b in _rgb565_to_bgr_tuple(pixel565):
+            for b in reversed(pixel):
+                if b == 0xfc:
+                    print('ping!')
                 row_buffer[buffer_index] = b & 0xFF
                 buffer_index += 1
         output_file.write(row_buffer)
         gc.collect()
 
 
-def save_pixels(filename, plotter: ExplorerPlotter):
+def save_pixels(filename, plotter: AbstractPlotter):
     """Save pixels to a 24 bit per pixel BMP file.
 
 
     :param filename: the file name to save to
     :param plotter: plotter that created the image to save
     """
-    width = plotter.width
-    height = plotter.height
+    width = plotter.width()
+    height = plotter.height()
     filesize = 54 + height * _bytes_per_row(width)
 
     with open(filename, "wb") as output_file:

@@ -8,9 +8,9 @@ from abstract_plotter import AbstractPlotter, Frame
 class Plotter(AbstractPlotter):
     def __init__(self):
         AbstractPlotter.__init__(self)
-        self.width = display.get_width()
-        self.height = display.get_height()
-        self._display_buffer = bytearray(self.width * self.height * 2)
+        width = display.get_width()
+        height = display.get_height()
+        self._display_buffer = bytearray(width * height * 2)
         display.init(self._display_buffer)
 
     def display_pixel(self, x, y):

@@ -22,6 +22,22 @@ class COLORS:
         return colors[i % len(colors)]
 
     @classmethod
-    def to_hex_color(cls, triple: tuple):
+    def rgb_to_hex(cls, triple: tuple) -> int:
         r, g, b = triple
         return (r << 16) + (g << 8) + b
+
+    @classmethod
+    def hex_to_rgb(cls, hex_color: int) -> tuple:
+        r = (hex_color >> 16) & 0xFF
+        g = (hex_color >> 8) & 0xFF
+        b = hex_color & 0xFF
+        return (r, g, b)
+
+    @classmethod
+    def rgb565_to_bgr_tuple(cls, color: int) -> tuple:
+        blue = (color << 3) & 0x00F8  # extract each of the RGB triple into its own byte
+        green = (color >> 3) & 0x00FC
+        red = (color >> 8) & 0x00F8
+        return (blue, green, red)
+
+

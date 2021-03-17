@@ -1,9 +1,23 @@
 from bmp import MonoBitmapWriter
 
 
+class Frame:
+    def __init__(self, *specs):
+        self.width, self.height, self.tm, self.bm, self.lm, self.rm = specs
+
+    def bottom(self):
+        return self.height - self.bm
+
+    def y_span(self):
+        return self.bottom() - self.tm
+
+    def right(self):
+        return self.width - self.rm
+
+
 class AbstractPlotter:
 
-    def __init__(self, frame= None):
+    def __init__(self, frame: Frame = None):
         self.frame = frame if frame else self.default_frame()
         self.pen = None
 
@@ -17,19 +31,25 @@ class AbstractPlotter:
         for (x, y) in self.bresenham(x1, y1, x2, y2):
             self.display_pixel(x, y)
 
+    def width(self) -> int:
+        return self.frame.width
+
+    def height(self) -> int:
+        return self.frame.height
+
     def text(self, x, y, text):
         pass
 
-    def default_frame(self):
+    def default_frame(self) -> Frame:
         pass
 
     def show(self):
         pass
 
-    def get_pixel(self, x, y):
+    def get_pixel(self, x, y) -> tuple:
         pass
 
-    def set_pen(self, color):
+    def set_pen(self, color: tuple):
         self.pen = color
 
     def circle(self, x, y, r, color):
@@ -48,7 +68,7 @@ class AbstractPlotter:
                     for k in range(8):
                         x = k + 8 * j
                         y = self.frame.height - (i + 1)
-                        bit = (0 != self.get_pixel(x, y))
+                        bit = ((0,0,0) != self.get_pixel(x, y))
                         row_bytes[j] |= bit << (7 - k)
                 mbw.add_row(row_bytes)
 
@@ -62,6 +82,7 @@ class AbstractPlotter:
         """Yield integer coordinates on the line from (x0, y0) to (x1, y1).
         Input coordinates should be integers.
         The result will contain both the start and the end point.
+
         """
         dx = x1 - x0
         dy = y1 - y0
@@ -88,16 +109,3 @@ class AbstractPlotter:
                 D -= 2 * dx
             D += 2 * dy
 
-
-class Frame:
-    def __init__(self, *specs):
-        self.width, self.height, self.tm, self.bm, self.lm, self.rm = specs
-
-    def bottom(self):
-        return self.height - self.bm
-
-    def y_span(self):
-        return self.bottom() - self.tm
-
-    def right(self):
-        return self.width - self.rm

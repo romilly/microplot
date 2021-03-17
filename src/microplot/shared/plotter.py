@@ -1,4 +1,4 @@
-from microplot.shared.abstract_plotter import AbstractPlotter, Frame
+from abstract_plotter import AbstractPlotter, Frame
 
 
 class Plotter(AbstractPlotter):
