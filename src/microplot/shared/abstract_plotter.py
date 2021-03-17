@@ -38,7 +38,6 @@ class AbstractPlotter:
     def display_pixel(self, x, y):
         pass
 
-
     def write_mono_bitmap(self, file_name):
         with MonoBitmapWriter(file_name, self.frame.width, self.frame.height) as mbw:
             bytes_in_row = self.frame.width // 8

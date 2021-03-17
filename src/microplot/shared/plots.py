@@ -15,14 +15,6 @@ class Scale:
         return round(self.o_min + self.c * (val - self.d_min))
 
 
-def is_iterable(data_item):
-    try:
-        iter(data_item)
-    except TypeError:
-        return False
-    return True
-
-
 class Plot:
     def __init__(self, data, title: str):
         self.data = data

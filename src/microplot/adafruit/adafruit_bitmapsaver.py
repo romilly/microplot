@@ -34,9 +34,6 @@ import board
 from displayio import Bitmap, Palette, Display
 
 
-
-
-
 def _write_bmp_header(output_file, filesize):
     output_file.write(bytes("BM", "ascii"))
     output_file.write(struct.pack("<I", filesize))

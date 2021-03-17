@@ -1,4 +1,3 @@
-import math
 from plotter import Plotter
 from plots import ScatterPlot
 import board
