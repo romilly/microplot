@@ -46,9 +46,9 @@ def _write_pixels(output_file, plotter: AbstractPlotter):
         for i in range(width):
             try:
                 pixel = plotter.get_pixel(i, y-1)
-            except:
+            except Exception as e:
                 print(i, y)
-                raise Exception()
+                raise e
             for b in reversed(pixel):
                 if b == 0xfc:
                     print('ping!')

@@ -1,9 +1,8 @@
 import math
-
 import picoexplorer as display
 
 from abstract_plotter import AbstractPlotter, Frame
-
+from color import COLORS
 
 class Plotter(AbstractPlotter):
     def __init__(self):
@@ -17,9 +16,9 @@ class Plotter(AbstractPlotter):
         display.pixel(x, y)
 
     def get_pixel(self, x, y):
-        start = x + y*self.width
+        start = x + y*self.width()
         data = self._display_buffer
-        return (data[start * 2] << 8) + data[start * 2 + 1]
+        return COLORS.hex_to_rgb((data[start * 2] << 8) + data[start * 2 + 1])
 
     def text(self, x, y, text):
         display.text(text, round(x), round(y), 200) # 200 needs replacing
