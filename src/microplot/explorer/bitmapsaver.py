@@ -50,8 +50,6 @@ def _write_pixels(output_file, plotter: AbstractPlotter):
                 print(i, y)
                 raise e
             for b in reversed(pixel):
-                if b == 0xfc:
-                    print('ping!')
                 row_buffer[buffer_index] = b & 0xFF
                 buffer_index += 1
         output_file.write(row_buffer)
