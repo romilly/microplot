@@ -40,6 +40,11 @@ class COLORS:
         red = (color >> 8) & 0x00F8
         return (blue, green, red)
 
+    @classmethod
+    def rgb565_to_rgb_tuple(cls, color: int) -> tuple:
+        b, g, r = cls.rgb565_to_bgr_tuple(color)
+        return (r, g, b)
+
 
 
 

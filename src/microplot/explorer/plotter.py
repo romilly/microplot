@@ -17,7 +17,8 @@ class Plotter(AbstractPlotter):
     def get_pixel(self, x, y):
         start = x + y*self.width()
         data = self._display_buffer
-        return COLORS.rgb565_to_bgr_tuple((data[start * 2] << 8) + data[start * 2 + 1])
+        return COLORS.rgb565_to_rgb_tuple((data[start * 2] << 8)
+            + data[start * 2 + 1])
 
     def text(self, x, y, text):
         display.text(text, round(x), round(y), 200) # 200 needs replacing
