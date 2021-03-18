@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../../microplot-private"
+		},
+		{
+			"name": "microplot",
+			"path": "../.."
+		}
+	],
+	"settings": {}
+}
