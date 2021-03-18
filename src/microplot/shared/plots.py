@@ -76,6 +76,10 @@ class ScatterPlot(Plot):
     Draw a scatter plot
     """
 
+    def __init__(self, data, title: str, pointer: str):
+        super().__init__(data, title)
+        self._scatter_point = pointer
+
     def plot(self, plotter):
         frame = plotter.frame
         frame.bm = frame.bm+10
@@ -93,11 +97,16 @@ class ScatterPlot(Plot):
         scale_y = Scale(y_min, y_max, frame.bottom()-(radius+text_margin), frame.tm + text_margin+radius)
         self.add_y_scale(frame, plotter, scale_y, y_max, y_min, COLORS.WHITE)
         self.add_x_scale(frame, plotter, scale_x, x_max, x_min, COLORS.WHITE)
+
         for (index, each_set) in enumerate(self.data):
             color = COLORS.color(index)
             for x, y in each_set:
-                plotter.circle(scale_x.scale(x), scale_y.scale(y), 5, color)
+                if self._scatter_point == "Triangle":
+                    plotter.triangle(scale_x.scale(x), scale_y.scale(y), 5, color)
+                else:
+                    plotter.circle(scale_x.scale(x), scale_y.scale(y), 5, color)
         plotter.show()
+
 
 
 
