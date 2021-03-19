@@ -20,7 +20,7 @@ class Plotter(AbstractPlotter):
         self.palette = displayio.Palette(len(colors))
         self.pallet_index = {}
         for (index, color) in enumerate(colors):
-            hex_color = COLORS.to_hex_color(color)
+            hex_color = COLORS.rgb_to_hex(color)
             self.palette[index] = hex_color
             self.pallet_index[color] = index
         tile_grid = displayio.TileGrid(self.bitmap, pixel_shader=self.palette)
@@ -37,13 +37,13 @@ class Plotter(AbstractPlotter):
         return self.bitmap[x, y]
 
     def text(self, x, y, text):
-        text_area = label.Label(self.font, text=text, color=COLORS.to_hex_color(COLORS.WHITE))
+        text_area = label.Label(self.font, text=text, color=COLORS.rgb_to_hex(COLORS.WHITE))
         text_area.x = x
         text_area.y = y + 10
         self.group.append(text_area)
 
     def circle(self, x, y, r, color=COLORS.RED):
-        color_hex = COLORS.to_hex_color(color)
+        color_hex = COLORS.rgb_to_hex(color)
         c = Circle(x, y, r, fill=color_hex, outline=color_hex)
         self.group.append(c)
 
@@ -67,7 +67,7 @@ class Plotter(AbstractPlotter):
         :return: None
         :rtype None
         """
-        color_hex = COLORS.to_hex_color(color)
+        color_hex = COLORS.rgb_to_hex(color)
         # to simplify math we take the following approximation √3≈1.732
         square_three = 1.732
         r = r // 2
