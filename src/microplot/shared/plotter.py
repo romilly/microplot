@@ -9,5 +9,8 @@ class Plotter(AbstractPlotter):
     def circle(self, x, y, r, color):
         self.circles.append((x, y, r, color))
 
+    def triangle(self, x, y, r, color):
+        self.triangle.append((x, y, r, color))
+
     def default_frame(self):
         return Frame(320, 240, 20, 20, 60, 20)

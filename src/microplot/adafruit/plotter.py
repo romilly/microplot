@@ -5,6 +5,7 @@ import displayio
 import terminalio
 from adafruit_display_text import label
 from adafruit_display_shapes.circle import Circle
+from adafruit_display_shapes.triangle import Triangle
 
 
 class Plotter(AbstractPlotter):
@@ -41,9 +42,43 @@ class Plotter(AbstractPlotter):
         text_area.y = y + 10
         self.group.append(text_area)
 
-    def circle(self, x ,y, r, color=COLORS.RED):
+    def circle(self, x, y, r, color=COLORS.RED):
         color_hex = COLORS.to_hex_color(color)
         c = Circle(x, y, r, fill=color_hex, outline=color_hex)
+        self.group.append(c)
+
+    def triangle(self, x: int, y: int, r: int, color=COLORS.RED) -> None:
+        """
+        triangle function
+        Draws a equilateral triangle with center in cordinates (x, y) and side
+        size ``a``. Where ``a`` is equal to ``(6 x r) / √3``
+
+                      (x0,y0)
+                    /\
+                   /  \
+                  / .  \
+                 / x, y \
+         (x2,y2)/________\ (x1,y1)
+
+        :param int x: x coordinate of the triangle center
+        :param int y: y coordinate of the triangle center
+        :param int r: r radius of the circle inside the triangle
+        :param int color: color identification
+        :return: None
+        :rtype None
+        """
+        color_hex = COLORS.to_hex_color(color)
+        # to simplify math we take the following approximation √3≈1.732
+        square_three = 1.732
+        r = r // 2
+        x0 = x - int(round(square_three * r))
+        y0 = y + r
+        x1 = x
+        y1 = y - int(round(square_three * 2 * r))
+        x2 = x + int(round(square_three * r))
+        y2 = y + r
+
+        c = Triangle(x0, y0, x1, y1, x2, y2, fill=color_hex, outline=color_hex)
         self.group.append(c)
 
     def set_pen(self, color):
