@@ -62,7 +62,7 @@ class Plotter(AbstractPlotter):
 
         :param int x: x coordinate of the triangle center
         :param int y: y coordinate of the triangle center
-        :param int r: r coordinate of the triangle center
+        :param int r: r radius of the circle inside the triangle
         :param int color: color identification
         :return: None
         :rtype None
