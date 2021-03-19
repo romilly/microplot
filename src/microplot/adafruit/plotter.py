@@ -53,16 +53,16 @@ class Plotter(AbstractPlotter):
         Draws a equilateral triangle with center in cordinates (x, y) and side
         size ``a``. Where ``a`` is equal to ``(6 x r) / √3``
 
-                      (x3,y3)
+                      (x0,y0)
                     /\
                    /  \
                   / .  \
                  / x, y \
-         (x0,y0)/________\ (x2,y2)
+         (x2,y2)/________\ (x1,y1)
 
         :param int x: x coordinate of the triangle center
         :param int y: y coordinate of the triangle center
-        :param int r: r coordinate of the triangle center
+        :param int r: r radius of the circle inside the triangle
         :param int color: color identification
         :return: None
         :rtype None
@@ -70,14 +70,15 @@ class Plotter(AbstractPlotter):
         color_hex = COLORS.to_hex_color(color)
         # to simplify math we take the following approximation √3≈1.732
         square_three = 1.732
+        r = r // 2
         x0 = x - int(round(square_three * r))
-        y0 = y - r
+        y0 = y + r
         x1 = x
-        y1 = y + int(round(square_three * 2 * r))
+        y1 = y - int(round(square_three * 2 * r))
         x2 = x + int(round(square_three * r))
-        y2 = y - r
+        y2 = y + r
 
-        c = Triangle(x0, y0, x1, y1, x2, y2, r, fill=color_hex, outline=color_hex)
+        c = Triangle(x0, y0, x1, y1, x2, y2, fill=color_hex, outline=color_hex)
         self.group.append(c)
 
     def set_pen(self, color):
