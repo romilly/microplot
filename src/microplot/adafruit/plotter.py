@@ -53,7 +53,7 @@ class Plotter(AbstractPlotter):
         Draws a equilateral triangle with center in cordinates (x, y) and side
         size ``a``. Where ``a`` is equal to ``(6 x r) / √3``
 
-                      (x3,y3)
+                      (x1,y1)
                     /\
                    /  \
                   / .  \
