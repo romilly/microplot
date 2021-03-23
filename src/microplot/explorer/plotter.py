@@ -3,6 +3,7 @@ import picoexplorer as display
 from abstract_plotter import AbstractPlotter, Frame
 from color import COLORS
 
+
 class Plotter(AbstractPlotter):
     def __init__(self):
         AbstractPlotter.__init__(self)
